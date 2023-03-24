@@ -23,13 +23,13 @@ const verifytoken=(req,res,next) => {
 }
 
 UserRouter.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     return res.status(404).send({ message: "Required all fields" });
   }
 
   try {
-    const { message } = await createUser(name, email, password);
+    const { message } = await createUser(username, email, password);
     console.log(message)
     if (message == "User exist Already") {
       return res.status(400).send({ message: "User already exists" });

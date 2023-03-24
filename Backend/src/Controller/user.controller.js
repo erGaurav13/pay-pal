@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRound = 10;
 const jwt = require("jsonwebtoken");
 
-const createUser = async (name, email, passwordnothash) => {
+const createUser = async (username, email, passwordnothash) => {
   try {
     // check if user is already exists;
     const existingUser = await UserModel.findOne({ email });
@@ -17,7 +17,7 @@ const createUser = async (name, email, passwordnothash) => {
     const password = await bcrypt.hash(passwordnothash, saltRound);
 
     // create User;
-    const user = await UserModel.create({ name, email, password });
+    const user = await UserModel.create({ username, email, password });
     return { message: "User registered successfully" };
   } catch (e) {
     console.log(e);
@@ -49,7 +49,7 @@ const loginUser = async ({ email, password }) => {
     }
 
     //    generate JWT token;
-    const token = jwt.sign({ email: user.email }, process.env.SECRETE_KEY, {
+    const token = jwt.sign({ email: user.email,username:user.username }, process.env.SECRETE_KEY, {
       expiresIn: process.env.TOKEN_EXP,
     });
     const refreshtoken = jwt.sign(

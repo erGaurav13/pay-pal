@@ -3,7 +3,7 @@ import { useNavigate  } from "react-router-dom"
 import  "../CSS/form.css"
 
 let obj={
-    name:"",
+  username:"",
     email:"",
     password:"",
 }
@@ -20,7 +20,7 @@ setData({...data,[name]:value});
 const handleSubmit=(e)=>{
 e.preventDefault()
 setLoading(true)
-fetch("https://ergaurav13-pococareassignement.onrender.com/user/signup",{
+fetch("http://localhost:8080/user/signup",{
         method: "POST",
         body: JSON.stringify(data),
         headers:{
@@ -50,7 +50,7 @@ return <div>
         <h1>Signup</h1>
       <label>
         Name:
-        <input  name="name" type="text"  onChange={handelChange}/>
+        <input  name="username" type="text"  onChange={handelChange}/>
       </label>
       <label>
         Email:
