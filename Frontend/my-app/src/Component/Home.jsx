@@ -33,10 +33,9 @@ return <div >
      <div  >
      <ChakraProvider>
      <SideBar/>
-      
      </ChakraProvider>
-    {/* <div><button onClick={handelLogout}>Logout</button>
-    <button onClick={()=>dispatch(getListofTask())}>Getlist</button></div> */}
+    <div><button onClick={handelLogout}>Logout</button>
+    <button onClick={()=>dispatch(getListofTask())}>Getlist</button></div>
      </div>
    
     

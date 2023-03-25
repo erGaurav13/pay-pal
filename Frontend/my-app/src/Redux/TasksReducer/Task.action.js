@@ -19,4 +19,11 @@ const getListofTask =(info) => async (dispatch) => {
   dispatch({type:GET_LIST_OF_TASK,payload:data.data})
 };
 
-export { createTask, getListofTask };
+
+const updatetask =(info) => async (dispatch) => {
+  let data = await axios.get(`${baseurl}/task/updatestatus`);
+  console.log(data)
+  dispatch({type:GET_LIST_OF_TASK,payload:data.data})
+};
+
+export { createTask, getListofTask ,updatetask};

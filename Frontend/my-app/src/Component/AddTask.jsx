@@ -1,8 +1,8 @@
-import { Box, FormControl, FormLabel, Input, Text } from "@chakra-ui/react"
+ 
 import { useState } from "react"
 import { createTask } from "../Redux/TasksReducer/Task.action"
 import { SideBar } from "./SideBar"
-import { useSelector,useDispatch } from "react-redux"
+import {  useDispatch } from "react-redux"
 
 
 let obj={  
@@ -21,7 +21,7 @@ export  const AddTask=()=>{
   console.log(data)
     const handleSubmit=(e)=>{
         e.preventDefault();
-        dispatch(createTask(data))
+        dispatch(createTask(data)).then(()=>{alert("Task created successfully")})
     }
 
      return <div>

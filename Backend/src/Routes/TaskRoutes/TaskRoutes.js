@@ -31,4 +31,20 @@ TaskRoute.post("/addtask",async (req,res)=>{
      
 })
 
+TaskRoute.post("/updatestatus",async(req,res)=>{
+const {id,completed} = req.body;
+if(!id||!completed){
+    return res.send("fiels required")
+}
+
+try{
+      const update= await Tasks.findByIdAndUpdate({_id:id},{completed:completed})
+      return res.send("Updated")
+}catch(e){
+return res.send(e)
+}
+})
+
+
+
 module.exports=TaskRoute
