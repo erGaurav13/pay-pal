@@ -14,11 +14,12 @@ export  const AddTask=()=>{
     const dispatch=useDispatch();
 
     const [data,setData]=useState(obj);
-        const handelChange=(e)=>{
+       
+    const handelChange=(e)=>{
             const {name,value} = e.target;
             setData({...data,[name]:value});
             }
-  console.log(data)
+  // console.log(data)
     const handleSubmit=(e)=>{
         e.preventDefault();
         dispatch(createTask(data)).then(()=>{alert("Task created successfully")})
@@ -38,7 +39,7 @@ export  const AddTask=()=>{
       </label>  
       <label>
         Description:
-        <input  name="desc" type="text"  onChange={handelChange}/>
+        <textarea  name="desc" type="text"  onChange={handelChange}/>
       </label>
       <button type="submit">Submit</button>
     </form>

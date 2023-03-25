@@ -23,7 +23,7 @@ const handelUpdate=(_id )=>{
 
 const updateAssigneEmail =(_id)=>{
 let email=prompt("please enter assigne email");
-console.log(email)
+// console.log(email)
 dispatch(updateAssigne({_id:_id,email:email})).then(()=>{
     dispatch(getListofTask())
     alert("Updated sucessfull")

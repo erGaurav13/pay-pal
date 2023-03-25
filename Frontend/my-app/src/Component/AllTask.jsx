@@ -18,8 +18,8 @@ export  const AllTask=()=>{
      return <div  >
         <SideBar/>
         <div>
-            {taskList?.map((e)=>{
-              return  <TaskCard data={e}/>
+            {taskList?.map((e,i)=>{
+              return  <TaskCard data={e} key={i+1}/>
             })
             }   
         </div>
