@@ -4,15 +4,16 @@ const TaskRoute=express.Router();
 
 
 TaskRoute.get("/",(req,res)=>{
- 
-
-
     res.send("Task")
 })
 
-TaskRoute.get("/listoftask",(req,res)=>{
- 
-    res.send([{name:"gaurav"},{name:"gaurav"}])
+TaskRoute.get("/listoftask",async(req,res)=>{       
+  try{
+    const list= await Tasks.find({});
+    return res.status(200).send(list)
+  }catch(e){
+    return res.status(501).send("server-error")
+  }  
 })
 
 TaskRoute.post("/addtask",async (req,res)=>{
@@ -32,40 +33,47 @@ TaskRoute.post("/addtask",async (req,res)=>{
 })
 
 TaskRoute.post("/updatestatus",async(req,res)=>{
-const {id,completed} = req.body;
-if(!id||!completed){
+
+const {_id} = req.body;
+console.log(_id,"id")
+if(!_id ){
     return res.send("fiels required")
 }
 
-try{
-      const update= await Tasks.findByIdAndUpdate({_id:id},{completed:completed})
+try{  const task= await Tasks.find({_id})
+console.log(task[0])
+      const update= await Tasks.findByIdAndUpdate({_id:_id},{completed:!task[0].completed})
+      console.log(update)
       return res.send("Updated")
 }catch(e){
+    console.log(e)
 return res.send(e)
 }
 })
 
 TaskRoute.post("/updateassigne",async(req,res)=>{
-    const {id,email} = req.body;
-    if(!id||!email){
+    const {_id,email} = req.body;
+    if(!_id||!email){
         return res.send("fiels required")
     }
     
     try{
-          const update= await Tasks.findByIdAndUpdate({_id:id},{email:email})
+          const update= await Tasks.findByIdAndUpdate({_id:_id},{email:email})
           return res.send({mes:"Update",update:update})
     }catch(e){
     return res.send(e)
     }
     })
 
-    TaskRoute.delete("/delete",async(req,res)=>{
-        const {id } = req.body;
-        if(!id ){
+
+TaskRoute.post("/delete",async(req,res)=>{
+        const {_id } = req.body;
+        console.log(_id)
+        if(!_id ){
             return res.send("fiels required")
         } 
         try{
-              const update= await Tasks.findByIdAndDelete({_id:id})
+              const update= await Tasks.findByIdAndDelete({_id:_id})
               return res.send({mes:"Deleted",Deleted:update})
         }catch(e){
         return res.send(e)

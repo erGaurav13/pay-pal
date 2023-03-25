@@ -1,7 +1,14 @@
 import axios from "axios";
-import { CREATE_TASK, GET_LIST_OF_TASK } from "./Task.actionTypes";
+import {  GET_LIST_OF_TASK } from "./Task.actionTypes";
 
 let baseurl = "http://localhost:8080";
+
+
+const getListofTask =() => async (dispatch) => {
+  let data = await axios.get(`${baseurl}/task/listoftask`);
+  console.log(data)
+  dispatch({type:GET_LIST_OF_TASK,payload:data.data})
+};
 
 const createTask = (info) => async (dispatch) => {
   try {
@@ -13,17 +20,27 @@ const createTask = (info) => async (dispatch) => {
   }
 };
 
-const getListofTask =(info) => async (dispatch) => {
-  let data = await axios.get(`${baseurl}/task/listoftask`);
-  console.log(data)
-  dispatch({type:GET_LIST_OF_TASK,payload:data.data})
-};
+
 
 
 const updatetask =(info) => async (dispatch) => {
-  let data = await axios.get(`${baseurl}/task/updatestatus`);
-  console.log(data)
-  dispatch({type:GET_LIST_OF_TASK,payload:data.data})
+  console.log(info)
+  let data = await axios.post(`${baseurl}/task/updatestatus`,info);
+  
+ getListofTask()
 };
 
-export { createTask, getListofTask ,updatetask};
+const updateAssigne =(info) => async (dispatch) => {
+  let data = await axios.post(`${baseurl}/task/updateassigne`,info);
+  console.log(data)
+  
+};
+
+const taskdelete =(info) => async (dispatch) => {
+  console.log(info,"DD")
+  let data = await axios.post(`${baseurl}/task/delete`,info);
+  console.log(data)
+  
+};
+
+export { createTask, getListofTask ,updatetask, taskdelete,updateAssigne };

@@ -8,16 +8,20 @@ import { getListofTask } from "../Redux/TasksReducer/Task.action"
 
 
 export  const AllTask=()=>{
-     const state=useSelector(state=>state);
-    const dispatch=useDispatch()
-    useEffect(()=>{
+     const {taskList}=useSelector(state=>state.TaskReducer);
+     console.log(taskList)
+      const dispatch=useDispatch()
+     useEffect(()=>{
      dispatch(getListofTask())
     },[dispatch]);
-    console.log(state)
-return <div  >
+   
+     return <div  >
         <SideBar/>
         <div>
-            <TaskCard/>
+            {taskList?.map((e)=>{
+              return  <TaskCard data={e}/>
+            })
+            }   
         </div>
     </div>   
           
